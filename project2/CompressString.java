@@ -72,16 +72,13 @@ public class CompressString {
     int index = 0;
     int count = 1;
     StringBuilder stringBuilder = new StringBuilder();
-    while (index < src.length())
-    {
-      while (index < src.length() - 1)
-      {
-        if (src.charAt(index) == src.charAt(index + 1))
-        {
+      
+    while (index < src.length()) {
+      while (index < src.length() - 1) {
+        if (src.charAt(index) == src.charAt(index + 1)) {
           index++;
           count++;
-        } else
-        {
+        } else {
           stringBuilder.append(src.charAt(index));
           if (count > 1)
             stringBuilder.append(count);
@@ -91,13 +88,10 @@ public class CompressString {
           break;
         }
       }
-      if (index == src.length() - 1)
-      {
-        if (src.charAt(index) != src.charAt(index - 1))
-        {
+      if (index == src.length() - 1) {
+        if (src.charAt(index) != src.charAt(index - 1)) {
           stringBuilder.append(src.charAt(index));
-        } else
-        {
+        } else {
           stringBuilder.append(src.charAt(index));
           if (count > 1)
             stringBuilder.append(count);
@@ -115,8 +109,7 @@ public class CompressString {
 
   private void appendLastCharIfNeeded(StringBuilder stringBuilder, int repeatedCharCounter,
       char previousChar) {
-    if (repeatedCharCounter > 1)
-    {
+    if (repeatedCharCounter > 1) {
       addChar(stringBuilder, previousChar);
       stringBuilder.append(repeatedCharCounter);
     }
@@ -127,7 +120,6 @@ public class CompressString {
    * recursive version is the same than te previous one.
    */
   public String compressRecursive(String src) {
-    boolean thereIsNoMoreWordToCompress = false;
 
     if (src.length() <= 1)
       return src;
@@ -138,18 +130,14 @@ public class CompressString {
   private String compressRecursiveInner(String src, StringBuilder sb, int i, char previousChar,
       int charCounter) {
     boolean thereIsNoMoreWordToCompress = i == src.length();
-    if (thereIsNoMoreWordToCompress == true)
-    {
+    if (thereIsNoMoreWordToCompress == true) {
       addChar(sb, previousChar);
       addCharCounterIfNeeded(sb, charCounter);
       return sb.toString();
-    } else
-    {
-      if (isCharRepeated(src.charAt(i), previousChar))
-      {
+    } else {
+      if (isCharRepeated(src.charAt(i), previousChar)) {
         return compressRecursiveInner(src, sb, i + 1, previousChar, charCounter + 1);
-      } else
-      {
+      } else {
         addChar(sb, previousChar);
         addCharCounterIfNeeded(sb, charCounter);
         return compressRecursiveInner(src, sb, i + 1, src.charAt(i), 1);
@@ -158,8 +146,7 @@ public class CompressString {
   }
 
   private void addCharCounterIfNeeded(StringBuilder sb, int charCounter) {
-    if (charCounter > 1)
-    {
+    if (charCounter > 1) {
       sb.append(charCounter);
     }
   }
